@@ -1,8 +1,12 @@
 [project]
-name = "array-api-typing"
+name = "xarray"
 version = "0.0.1a1"
 requires-python = ">= 3.10"
-dependencies = []
+dependencies = [
+    "array_api_typing",
+    "array_api_compat",
+    "array_api_extra",
+]
 
 [build-system]
 requires = ["setuptools"]

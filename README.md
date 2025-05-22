@@ -1,2 +1,2 @@
-# array_api_typing
-My Implementation for https://github.com/data-apis/array-api-typing
+# xarray
+Cross-platform Python N-dimensional array library based on Array API.
