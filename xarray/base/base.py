@@ -119,6 +119,19 @@ class ComputeBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType], Ar
         device : Optional[BDeviceType] = None
     ) -> BArrayType:
         raise NotImplementedError
+    
+    @abc.abstractmethod
+    def from_other_backend(
+        self,
+        other_backend : "ComputeBackend",
+        data : ArrayAPIArray,
+        /
+    ) -> BArrayType:
+        """
+        Convert an array from another backend to this backend.
+        The other backend must be compatible with the ArrayAPI.
+        """
+        raise NotImplementedError
 
     @abc.abstractmethod
     def to_numpy(
@@ -147,46 +160,11 @@ class ComputeBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType], Ar
     def dtype_is_boolean(self, dtype : BDtypeType) -> bool:
         raise NotImplementedError
     
-    # @abc.abstractmethod
-    # def abbreviate_array(cls, array : BArrayType, try_cast_scalar : bool = True) -> Union[float, int, BArrayType]:
-    #     """
-    #     Abbreivates an array to a single element if possible.
-    #     Or, if some dimensions are the same, abbreviates to a smaller array (but with the same number of dimensions).
-    #     """
-    #     abbr_array = array
-    #     idx = cls.array_api_namespace.zeros(1, dtype=cls.default_integer_dtype, device=cls.get_device(abbr_array))
-    #     for dim_i in range(len(array.shape)):
-    #         first_elem = cls.array_api_namespace.take(abbr_array, idx, axis=dim_i)
-    #         if cls.array_api_namespace.all(abbr_array == first_elem):
-    #             abbr_array = first_elem
-    #         else:
-    #             continue
-    #     if try_cast_scalar:
-    #         if all(i == 1 for i in abbr_array.shape):
-    #             elem = abbr_array[tuple([0] * len(abbr_array.shape))]
-    #             if cls.dtype_is_real_floating(elem.dtype):
-    #                 return float(elem)
-    #             elif cls.dtype_is_real_integer(elem.dtype):
-    #                 return int(elem)
-    #             elif cls.dtype_is_boolean(elem.dtype):
-    #                 return bool(elem)
-    #             else:
-    #                 raise ValueError(f"Abbreviated array element dtype must be a real floating or integer or boolean type, actual dtype: {elem.dtype}")
-    #     else:
-    #         return array
+    @abc.abstractmethod
+    def abbreviate_array(self, x : BArrayType, try_cast_scalar: bool = True) -> Union[float, int, BArrayType]:
+        """
+        Abbreviates an array to a single element if possible.
+        Or, if some dimensions are the same, abbreviates to a smaller array (but with the same number of dimensions).
+        """
+        pass
     
-    # @classmethod
-    # def map_fn_over_arrays(cls, data : Any, func : Callable[[BArrayType], BArrayType]) -> Any:
-    #     """
-    #     Map a function to the data.
-    #     """
-    #     if cls.is_backendarray(data):
-    #         return func(data)
-    #     elif isinstance(data, Mapping):
-    #         return {k: cls.map_fn_over_arrays(v, func) for k, v in data.items()}
-    #     elif isinstance(data, tuple):
-    #         return tuple(cls.map_fn_over_arrays(i, func) for i in data)
-    #     elif isinstance(data, Sequence):
-    #         return [cls.map_fn_over_arrays(i, func) for i in data]
-    #     else:
-    #         return data
