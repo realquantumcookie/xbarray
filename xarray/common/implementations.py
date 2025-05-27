@@ -1,7 +1,7 @@
 from typing import Any, Union
-from ..base import ComputeBackend, BArrayType
+from array_api_typing.typing_compat import ArrayAPINamespace as CompatNamespace, ArrayAPIArray as CompatArray
 
-def abbreviate_array(backend : ComputeBackend[BArrayType, Any, Any, Any], array : BArrayType, try_cast_scalar : bool = True) -> Union[float, int, BArrayType]:
+def abbreviate_array(backend : CompatNamespace[CompatArray, Any, Any], array : CompatArray, try_cast_scalar : bool = True) -> Union[float, int, CompatArray]:
     """
     Abbreivates an array to a single element if possible.
     Or, if some dimensions are the same, abbreviates to a smaller array (but with the same number of dimensions).

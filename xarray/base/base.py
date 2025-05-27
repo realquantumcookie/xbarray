@@ -1,8 +1,21 @@
 from typing import Optional, Generic, TypeVar, Dict, Union, Any, Sequence, SupportsFloat, Tuple, Type, Callable, Mapping, Protocol
 import abc
 from array_api_typing.typing_extra import *
-import array_api_compat
 import numpy as np
+
+__all__ = [
+    "RNGBackend",
+    "ComputeBackend",
+    "BArrayType",
+    "BDeviceType",
+    "BDtypeType",
+    "BRNGType",
+    "SupportsDLPack",
+    "ArrayAPIArray",
+    "ArrayAPIDevice",
+    "ArrayAPIDType",
+    "ArrayAPINamespace",
+]
 
 BArrayType = TypeVar("BArrayType", covariant=True, bound=ArrayAPIArray)
 BDeviceType = TypeVar("BDeviceType", covariant=True, bound=ArrayAPIDevice)
@@ -100,10 +113,14 @@ class RNGBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType]):
         raise NotImplementedError
 
 class ComputeBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType], ArrayAPINamespace[BArrayType, BDeviceType, BDtypeType]):
+    ARRAY_TYPE : Type[BArrayType]
+    DEVICE_TYPE : Type[BDeviceType]
+    DTYPE_TYPE : Type[BDtypeType]
+    RNG_TYPE : Type[BRNGType]
     default_integer_dtype : BDtypeType
     default_floating_dtype : BDtypeType
     default_boolean_dtype : BDtypeType
-    random : RNGBackend[BArrayType, BDeviceType, BDtypeType, BRNGType]
+    random_backend : RNGBackend[BArrayType, BDeviceType, BDtypeType, BRNGType]
 
     @abc.abstractmethod
     def is_backendarray(self, data : Any) -> bool:
