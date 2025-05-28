@@ -1,6 +1,6 @@
 from typing import Union, Optional, Tuple, Any
 from ._typing import ARRAY_TYPE, DTYPE_TYPE, DEVICE_TYPE, RNG_TYPE
-import numpy as np
+import torch
 
 __all__ = [
     "random_number_generator",
@@ -17,7 +17,13 @@ def random_number_generator(
     *,
     device : Optional[DEVICE_TYPE] = None
 ) -> RNG_TYPE:
-    return np.random.default_rng(seed)
+    rng = torch.Generator(
+        device=device
+    )
+    if seed is not None:
+        rng = rng.manual_seed(seed)
+    return rng
+
 
 def random_discrete_uniform(
     shape : Union[int, Tuple[int, ...]], 
@@ -29,9 +35,7 @@ def random_discrete_uniform(
     dtype : Optional[DTYPE_TYPE] = None, 
     device : Optional[DEVICE_TYPE] = None
 ) -> Tuple[RNG_TYPE, ARRAY_TYPE]:
-    t = rng.integers(int(from_num), int(to_num), size=shape)
-    if dtype is not None:
-        t = t.astype(dtype)
+    t = torch.randint(int(from_num), int(to_num), shape, generator=rng, dtype=dtype, device=device)
     return rng, t
 
 def random_uniform(
@@ -43,9 +47,8 @@ def random_uniform(
     dtype : Optional[DTYPE_TYPE] = None, 
     device : Optional[DEVICE_TYPE] = None
 ) -> Tuple[RNG_TYPE, ARRAY_TYPE]:
-    t = rng.uniform(float(low), float(high), size=shape)
-    if dtype is not None:
-        t = t.astype(dtype)
+    t = torch.rand(shape, generator=rng, dtype=dtype, device=device)
+    t = t * (high - low) + low
     return rng, t
 
 def random_exponential(
@@ -57,9 +60,8 @@ def random_exponential(
     dtype : Optional[DTYPE_TYPE] = None, 
     device : Optional[DEVICE_TYPE] = None
 ) -> Tuple[RNG_TYPE, ARRAY_TYPE]:
-    t = rng.exponential(1.0 / float(lambd), size=shape)
-    if dtype is not None:
-        t = t.astype(dtype)
+    t = torch.empty(shape, dtype=dtype, device=device)
+    t = t.exponential_(lambd, generator=rng)
     return rng, t
 
 @classmethod
@@ -72,11 +74,8 @@ def random_normal(
     dtype : Optional[DTYPE_TYPE] = None, 
     device : Optional[Any] = None
 ) -> Tuple[RNG_TYPE, ARRAY_TYPE]:
-    t = rng.normal(mean, std, size=shape)
-    if dtype is not None:
-        t = t.astype(dtype)
+    t = torch.normal(mean, std, shape, generator=rng, dtype=dtype, device=device)
     return rng, t
-
 
 def random_geometric(
     shape: Union[int, Tuple[int, ...]], 
@@ -87,9 +86,8 @@ def random_geometric(
     dtype: Optional[DTYPE_TYPE] = None, 
     device: Optional[Any] = None
 ) -> Tuple[RNG_TYPE, ARRAY_TYPE]:
-    t = rng.geometric(p, size=shape)
-    if dtype is not None:
-        t = t.astype(dtype)
+    t = torch.empty(shape, dtype=dtype, device=device)
+    t = t.geometric_(p, generator=rng)
     return rng, t
 
 def random_permutation(
@@ -100,7 +98,5 @@ def random_permutation(
     dtype: Optional[DTYPE_TYPE] = None,
     device: Optional[DEVICE_TYPE] = None
 ) -> Tuple[RNG_TYPE, ARRAY_TYPE]:
-    t = rng.permutation(n)
-    if dtype is not None:
-        t = t.astype(dtype)
+    t = torch.randperm(n, generator=rng, dtype=dtype, device=device)
     return rng, t

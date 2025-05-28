@@ -1,6 +1,6 @@
-from array_api_compat.numpy import *
+from array_api_compat.torch import *
 
-from array_api_compat import numpy as compat_module
+from array_api_compat import torch as compat_module
 
 # Import and bind all functions from array_api_extra before exposing them
 import array_api_extra
