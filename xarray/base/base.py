@@ -112,7 +112,7 @@ class RNGBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType]):
     ) -> Tuple[BRNGType, BArrayType]:
         raise NotImplementedError
 
-class ComputeBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType], ArrayAPINamespace[BArrayType, BDeviceType, BDtypeType]):
+class ComputeBackend(ArrayAPINamespace[BArrayType, BDeviceType, BDtypeType], Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType]):
     ARRAY_TYPE : Type[BArrayType]
     DEVICE_TYPE : Type[BDeviceType]
     DTYPE_TYPE : Type[BDtypeType]
@@ -120,7 +120,7 @@ class ComputeBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType], Ar
     default_integer_dtype : BDtypeType
     default_floating_dtype : BDtypeType
     default_boolean_dtype : BDtypeType
-    random_backend : RNGBackend[BArrayType, BDeviceType, BDtypeType, BRNGType]
+    random : RNGBackend[BArrayType, BDeviceType, BDtypeType, BRNGType]
 
     @abc.abstractmethod
     def is_backendarray(self, data : Any) -> bool:

@@ -15,4 +15,4 @@ for api_name in dir(array_api_extra):
 
 from ._typing import *
 from ._extra import *
-__import__(__package__ + ".random_backend")
+__import__(__package__ + ".random")
