@@ -185,3 +185,9 @@ class ComputeBackend(ArrayAPINamespace[BArrayType, BDeviceType, BDtypeType], Pro
         """
         pass
     
+    @abc.abstractmethod
+    def map_fn_over_arrays(self, data : Any, func : Callable[[BArrayType], BArrayType]) -> Any:
+        """
+        Map a function over arrays in a data structure and produce a new data structure with the same shape.
+        This is useful for applying a function to all arrays in a nested structure.
+        """

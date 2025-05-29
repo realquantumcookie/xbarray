@@ -1,4 +1,3 @@
-import functools
 from typing import Any, Union, Optional
 import numpy as np
 from ._typing import ARRAY_TYPE, DTYPE_TYPE, DEVICE_TYPE, RNG_TYPE
@@ -69,9 +68,16 @@ def dtype_is_boolean(
 ) -> bool:
     return dtype == np.bool_ or dtype == bool
 
-from xarray.common.implementations import abbreviate_array as abbreviate_array_common
+from xarray.common.implementations import get_abbreviate_array_function, get_map_fn_over_arrays_function
 from array_api_compat import numpy as compat_module
-abbreviate_array = functools.partial(
-    abbreviate_array_common,
-    compat_module
+abbreviate_array = get_abbreviate_array_function(
+    backend=compat_module,
+    default_integer_dtype=default_integer_dtype,
+    func_dtype_is_real_floating=dtype_is_real_floating,
+    func_dtype_is_real_integer=dtype_is_real_integer,
+    func_dtype_is_boolean=dtype_is_boolean,
+)
+
+map_fn_over_arrays = get_map_fn_over_arrays_function(
+    is_backendarray=is_backendarray,
 )

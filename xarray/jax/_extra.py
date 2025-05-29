@@ -1,5 +1,4 @@
-import functools
-from typing import Any, Union, Optional
+from typing import Any, Union, Optional, Callable
 import jax
 import jax.numpy as jnp
 import numpy as np
@@ -78,12 +77,22 @@ def dtype_is_boolean(
 ) -> bool:
     return dtype == np.bool_ or dtype == bool
 
-from xarray.common.implementations import abbreviate_array as abbreviate_array_common
+from xarray.common.implementations import *
 if hasattr(jax.numpy, "__array_api_version__"):
     compat_module = jax.numpy
 else:
     import jax.experimental.array_api as compat_module
-abbreviate_array = functools.partial(
-    abbreviate_array_common,
-    compat_module
+abbreviate_array = get_abbreviate_array_function(
+    backend=compat_module,
+    default_integer_dtype=default_integer_dtype,
+    func_dtype_is_real_floating=dtype_is_real_floating,
+    func_dtype_is_real_integer=dtype_is_real_integer,
+    func_dtype_is_boolean=dtype_is_boolean
 )
+def map_fn_over_arrays(
+    data : Any, func : Callable[[ARRAY_TYPE], ARRAY_TYPE]
+):
+    return jax.tree.map(
+        func,
+        data
+    )
