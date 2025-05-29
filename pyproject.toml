@@ -6,6 +6,15 @@ dependencies = [
     "typing_extensions>=4.5",
     "array_api_compat",
     "array_api_extra",
+    "numpy",
+]
+
+[project.optional-dependencies]
+torch = [
+    "torch"
+]
+jax = [
+    "jax"
 ]
 
 [build-system]
