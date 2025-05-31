@@ -1,6 +1,16 @@
 from typing import Protocol, TypeVar, Optional, Any, Tuple, Union, Type
 from typing_extensions import deprecated
-from array_api_typing.typing_2024_12._array_typing import Array as ArrayAPI202412Array, Device, DType, PyCapsule, SupportsDLPack
+from array_api_typing.typing_2024_12._array_typing import SetIndex, GetIndex, Array as ArrayAPI202412Array, Device, DType, PyCapsule, SupportsDLPack
+
+__all__ = [
+    "SetIndex",
+    "GetIndex",
+    "Array",
+    "PyCapsule",
+    "SupportsDLPack",
+    "DType",
+    "Device",
+]
 
 class Array(ArrayAPI202412Array, Protocol):
     @property

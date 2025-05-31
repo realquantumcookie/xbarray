@@ -1,9 +1,11 @@
-from typing import Protocol, TypeVar, Optional, Any, Tuple, Union, Type
+from typing import Protocol, TypeVar, Optional, Any, Tuple, Union, Type, TypeAlias
 from types import EllipsisType
 from abc import abstractmethod
 from enum import Enum
 
 __all__ = [
+    'SetIndex',
+    'GetIndex',
     'Array',
     'PyCapsule',
     'SupportsDLPack',
@@ -228,6 +230,12 @@ class SupportsDLPack(Protocol):
 """
 From https://github.com/data-apis/array-api/blob/main/src/array_api_stubs/_2024_12/_types.py
 """
+SetIndex = Union[  # type: ignore[explicit-any]
+    int, slice, EllipsisType, "Array", Tuple[Union[int, slice, EllipsisType, "Array"], ...]
+]
+GetIndex = Union[  # type: ignore[explicit-any]
+    SetIndex, None, Tuple[Union[int, slice, EllipsisType, None, "Array"], ...]
+]
 
 _ARR_C = TypeVar("_ARR_C", bound='Array')
 class Array(SupportsDLPack, Protocol):

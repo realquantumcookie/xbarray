@@ -1,4 +1,4 @@
-from typing import Protocol, TypeVar, Optional, Any, Tuple, Union, Type, TypedDict, List
+from typing import Protocol, TypeVar, Optional, Any, Tuple, Union, Type, TypedDict, List, TypeAlias
 from dataclasses import dataclass
 from abc import abstractmethod
 from ._array_typing import Device, DType

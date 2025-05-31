@@ -1,7 +1,15 @@
 from typing import Protocol, TypeVar, Optional, Any, Tuple, Union, Type, TypedDict, Literal, Sequence, overload, Callable
 from abc import abstractmethod
 from array_api_typing.typing_compat._api_typing import ArrayAPINamespace as ArrayAPICompatNamespace, _NAMESPACE_ARRAY, _NAMESPACE_DEVICE, _NAMESPACE_DTYPE
+from array_api_typing.typing_compat._array_typing import SetIndex, GetIndex
 from ._at import AtResult
+
+try:
+    from array_api_extra._lib._at import Undef
+except ImportError:
+    from enum import Enum
+    class Undef(Enum):
+        UNDEF = 0
 
 class ArrayAPINamespace(ArrayAPICompatNamespace[_NAMESPACE_ARRAY, _NAMESPACE_DEVICE, _NAMESPACE_DTYPE], Protocol[_NAMESPACE_ARRAY, _NAMESPACE_DEVICE, _NAMESPACE_DTYPE]):
     """
@@ -12,6 +20,7 @@ class ArrayAPINamespace(ArrayAPICompatNamespace[_NAMESPACE_ARRAY, _NAMESPACE_DEV
     def at(
         self,
         x: _NAMESPACE_ARRAY,
+        idx : Union[SetIndex, Undef] = Undef.UNDEF,
         /
     ) -> "AtResult[_NAMESPACE_ARRAY]":
         """
