@@ -20,7 +20,7 @@ class AtResult(Protocol[_NAMESPACE_ARRAY]):
         y: Union[_NAMESPACE_ARRAY, float, int, complex],
         /,
         copy: Optional[bool] = None,
-    ):
+    ) -> _NAMESPACE_ARRAY:
         pass
 
     @abstractmethod
