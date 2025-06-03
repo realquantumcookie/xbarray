@@ -1,4 +1,7 @@
 import jax.numpy
+
+simplified_name = "jax"
+
 if hasattr(jax.numpy, "__array_api_version__"):
     compat_module = jax.numpy
     from jax.numpy import *

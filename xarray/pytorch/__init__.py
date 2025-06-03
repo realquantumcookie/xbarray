@@ -1,5 +1,7 @@
 from array_api_compat.torch import *
 
+simplified_name = "pytorch"
+
 from array_api_compat import torch as compat_module
 
 # Import and bind all functions from array_api_extra before exposing them

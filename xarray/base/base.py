@@ -113,6 +113,7 @@ class RNGBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType]):
         raise NotImplementedError
 
 class ComputeBackend(ArrayAPINamespace[BArrayType, BDeviceType, BDtypeType], Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType]):
+    simplified_name : str
     ARRAY_TYPE : Type[BArrayType]
     DEVICE_TYPE : Type[BDeviceType]
     DTYPE_TYPE : Type[BDtypeType]
