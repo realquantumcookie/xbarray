@@ -3,6 +3,9 @@ import abc
 from array_api_typing.typing_extra import *
 import numpy as np
 
+ArrayAPISetIndex = SetIndex
+ArrayAPIGetIndex = GetIndex
+
 __all__ = [
     "RNGBackend",
     "ComputeBackend",
@@ -15,6 +18,8 @@ __all__ = [
     "ArrayAPIDevice",
     "ArrayAPIDType",
     "ArrayAPINamespace",
+    "ArrayAPISetIndex",
+    "ArrayAPIGetIndex",
 ]
 
 BArrayType = TypeVar("BArrayType", covariant=True, bound=ArrayAPIArray)
@@ -36,7 +41,7 @@ class RNGBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType]):
         self, 
         shape : Union[int, Tuple[int, ...]], 
         from_num : int, 
-        to_num : Optional[int], 
+        to_num : int, 
         /,
         *,
         rng : BRNGType, 
