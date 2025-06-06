@@ -1,5 +1,5 @@
-# xarray
-Cross-backend Python N-dimensional array library based on Array API.
+# xbarray
+Cross-backend Python array library based on the Array API Standard.
 
 This allows you to write array transformations that can run on different backends like NumPy, PyTorch, and Jax.
 
@@ -14,10 +14,10 @@ pip install xbarray
 Abstract typing:
 
 ```python
-from xarray import ComputeBackend, BArrayType, BDeviceType, BDtypeType, BRNGType
+from xbarray import ComputeBackend, BArrayType, BDeviceType, BDtypeType, BRNGType
 from typing import Generic
 
-class ABC(Generic[BArrayType, BDeviceType, BDtypeType, BRNGType]):
+class Behavior(Generic[BArrayType, BDeviceType, BDtypeType, BRNGType]):
     def __init__(self, backend : ComputeBackend[BArrayType, BDeviceType, BDtypeType, BRNGType]) -> None:
         self.backend = backend
 
@@ -28,8 +28,8 @@ class ABC(Generic[BArrayType, BDeviceType, BDtypeType, BRNGType]):
 Concrete usage:
 
 ```python
-from xarray import pytorch as pytorch_backend
+from xbarray import pytorch as pytorch_backend
 
-abc_pytorch_instance = ABC(pytorch_backend)
-abc_pytorch_array = abc_pytorch_instance.create_array()
+behavior_pytorch_instance = Behavior(pytorch_backend)
+behavior_pytorch_array = behavior_pytorch_instance.create_array()
 ```
