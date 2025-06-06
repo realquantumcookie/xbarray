@@ -2,7 +2,7 @@ from typing import Any, Union, Optional
 import numpy as np
 import torch
 from ._typing import ARRAY_TYPE, DTYPE_TYPE, DEVICE_TYPE, RNG_TYPE
-from xarray.base import ComputeBackend, SupportsDLPack
+from xbarray.base import ComputeBackend, SupportsDLPack
 
 PYTORCH_DTYPE_CAST_MAP = {
     torch.uint16: torch.int16,
@@ -95,7 +95,7 @@ def dtype_is_boolean(
 ) -> bool:
     return dtype == torch.bool
 
-from xarray.common.implementations import get_abbreviate_array_function, get_map_fn_over_arrays_function
+from xbarray.common.implementations import get_abbreviate_array_function, get_map_fn_over_arrays_function
 from array_api_compat import torch as compat_module
 abbreviate_array = get_abbreviate_array_function(
     compat_module, 

@@ -1,7 +1,7 @@
 from typing import Any, Union, Optional
 import numpy as np
 from ._typing import ARRAY_TYPE, DTYPE_TYPE, DEVICE_TYPE, RNG_TYPE
-from xarray.base import ComputeBackend, SupportsDLPack
+from xbarray.base import ComputeBackend, SupportsDLPack
 
 __all__ = [
     "default_integer_dtype",
@@ -68,7 +68,7 @@ def dtype_is_boolean(
 ) -> bool:
     return dtype == np.bool_ or dtype == bool
 
-from xarray.common.implementations import get_abbreviate_array_function, get_map_fn_over_arrays_function
+from xbarray.common.implementations import get_abbreviate_array_function, get_map_fn_over_arrays_function
 from array_api_compat import numpy as compat_module
 abbreviate_array = get_abbreviate_array_function(
     backend=compat_module,

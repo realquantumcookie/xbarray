@@ -3,7 +3,7 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 from ._typing import ARRAY_TYPE, DTYPE_TYPE, DEVICE_TYPE, RNG_TYPE
-from xarray.base import ComputeBackend, SupportsDLPack
+from xbarray.base import ComputeBackend, SupportsDLPack
 
 __all__ = [
     "default_integer_dtype",
@@ -77,7 +77,7 @@ def dtype_is_boolean(
 ) -> bool:
     return dtype == np.bool_ or dtype == bool
 
-from xarray.common.implementations import *
+from xbarray.common.implementations import *
 if hasattr(jax.numpy, "__array_api_version__"):
     compat_module = jax.numpy
 else:

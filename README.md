@@ -3,6 +3,12 @@ Cross-backend Python N-dimensional array library based on Array API.
 
 This allows you to write array transformations that can run on different backends like NumPy, PyTorch, and Jax.
 
+## Installation
+
+```bash
+pip install xbarray
+```
+
 ## Usage:
 
 Abstract typing:

@@ -1,5 +1,5 @@
 [project]
-name = "xarray"
+name = "xbarray"
 version = "0.0.1a1"
 requires-python = ">= 3.10"
 dependencies = [
