@@ -18,6 +18,7 @@ __all__ = [
     "dtype_is_real_floating",
     "dtype_is_boolean",
     "abbreviate_array",
+    "map_fn_over_arrays",
 ]
 
 default_integer_dtype = int
