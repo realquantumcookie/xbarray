@@ -95,7 +95,7 @@ def dtype_is_boolean(
 ) -> bool:
     return dtype == torch.bool
 
-from xbarray.common.implementations import get_abbreviate_array_function, get_map_fn_over_arrays_function
+from .._common.implementations import get_abbreviate_array_function, get_map_fn_over_arrays_function
 from array_api_compat import torch as compat_module
 abbreviate_array = get_abbreviate_array_function(
     compat_module, 

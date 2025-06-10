@@ -21,9 +21,9 @@ def random_number_generator(
 
 def random_discrete_uniform(
     shape : Union[int, Tuple[int, ...]], 
+    /,
     from_num : int, 
     to_num : int, 
-    /,
     *,
     rng : RNG_TYPE, 
     dtype : Optional[DTYPE_TYPE] = None, 
@@ -62,7 +62,6 @@ def random_exponential(
         t = t.astype(dtype)
     return rng, t
 
-@classmethod
 def random_normal(
     shape: Union[int, Tuple[int, ...]],
     /,

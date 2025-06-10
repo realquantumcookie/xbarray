@@ -9,16 +9,22 @@ else:
     import jax.experimental.array_api as compat_module
     from jax.experimental.array_api import *
 
+from array_api_compat.common._helpers import *
+
 # Import and bind all functions from array_api_extra before exposing them
 import array_api_extra
 from functools import partial
 for api_name in dir(array_api_extra):
     if api_name.startswith('_'):
         continue
-    globals()[api_name] = partial(
-        getattr(array_api_extra, api_name),
-        xp=compat_module
-    )
+
+    if api_name == 'at':
+        globals()[api_name] = getattr(array_api_extra, api_name)
+    else:
+        globals()[api_name] = partial(
+            getattr(array_api_extra, api_name),
+            xp=compat_module
+        )
 
 from ._typing import *
 from ._extra import *

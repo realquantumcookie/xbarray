@@ -28,8 +28,8 @@ class Behavior(Generic[BArrayType, BDeviceType, BDtypeType, BRNGType]):
 Concrete usage:
 
 ```python
-from xbarray import pytorch as pytorch_backend
+from xbarray.pytorch import PyTorchComputeBackend
 
-behavior_pytorch_instance = Behavior(pytorch_backend)
+behavior_pytorch_instance = Behavior(PyTorchComputeBackend)
 behavior_pytorch_array = behavior_pytorch_instance.create_array()
 ```

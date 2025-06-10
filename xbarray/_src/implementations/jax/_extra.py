@@ -77,7 +77,7 @@ def dtype_is_boolean(
 ) -> bool:
     return dtype == np.bool_ or dtype == bool
 
-from xbarray.common.implementations import *
+from .._common.implementations import *
 if hasattr(jax.numpy, "__array_api_version__"):
     compat_module = jax.numpy
 else:

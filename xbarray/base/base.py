@@ -40,9 +40,9 @@ class RNGBackend(Protocol[BArrayType, BDeviceType, BDtypeType, BRNGType]):
     def random_discrete_uniform(
         self, 
         shape : Union[int, Tuple[int, ...]], 
-        from_num : int, 
-        to_num : int, 
         /,
+        from_num : int, 
+        to_num : int,
         *,
         rng : BRNGType, 
         dtype : Optional[BDtypeType] = None, 

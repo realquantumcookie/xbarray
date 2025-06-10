@@ -9,10 +9,14 @@ from functools import partial
 for api_name in dir(array_api_extra):
     if api_name.startswith('_'):
         continue
-    globals()[api_name] = partial(
-        getattr(array_api_extra, api_name),
-        xp=compat_module
-    )
+
+    if api_name == 'at':
+        globals()[api_name] = getattr(array_api_extra, api_name)
+    else:
+        globals()[api_name] = partial(
+            getattr(array_api_extra, api_name),
+            xp=compat_module
+        )
 
 from ._typing import *
 from ._extra import *
