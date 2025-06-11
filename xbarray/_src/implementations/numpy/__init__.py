@@ -1,4 +1,5 @@
 from array_api_compat.numpy import *
+from array_api_compat.common._helpers import *
 
 simplified_name = "numpy"
 

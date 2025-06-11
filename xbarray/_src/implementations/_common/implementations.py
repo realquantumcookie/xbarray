@@ -1,5 +1,6 @@
 from typing import Any, Union, Callable
 from array_api_typing.typing_compat import ArrayAPINamespace as CompatNamespace, ArrayAPIArray as CompatArray, ArrayAPIDType as CompatDType
+import array_api_compat
 
 __all__ = [
     "get_abbreviate_array_function",
@@ -19,7 +20,7 @@ def get_abbreviate_array_function(
         Or, if some dimensions are the same, abbreviates to a smaller array (but with the same number of dimensions).
         """
         abbr_array = array
-        idx = backend.zeros(1, dtype=default_integer_dtype, device=backend.device(abbr_array))
+        idx = backend.zeros(1, dtype=default_integer_dtype, device=array_api_compat.device(abbr_array))
         for dim_i in range(len(array.shape)):
             first_elem = backend.take(abbr_array, idx, axis=dim_i)
             if backend.all(abbr_array == first_elem):

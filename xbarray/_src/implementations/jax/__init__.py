@@ -1,7 +1,5 @@
 import jax.numpy
 
-simplified_name = "jax"
-
 if hasattr(jax.numpy, "__array_api_version__"):
     compat_module = jax.numpy
     from jax.numpy import *
@@ -10,6 +8,8 @@ else:
     from jax.experimental.array_api import *
 
 from array_api_compat.common._helpers import *
+
+simplified_name = "jax"
 
 # Import and bind all functions from array_api_extra before exposing them
 import array_api_extra
