@@ -65,7 +65,6 @@ def to_numpy(
     return data.cpu().numpy()
 
 def to_dlpack(
-    self,
     data: ARRAY_TYPE,
     /,
 ) -> SupportsDLPack:

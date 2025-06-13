@@ -57,7 +57,6 @@ def to_numpy(
     return np.asarray(data)
 
 def to_dlpack(
-    self,
     data: ARRAY_TYPE,
     /,
 ) -> SupportsDLPack:
