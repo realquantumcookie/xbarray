@@ -12,7 +12,7 @@ for api_name in dir(array_api_extra):
     if api_name.startswith('_'):
         continue
 
-    if api_name == 'at':
+    if api_name in ['at', 'broadcast_shapes']:
         globals()[api_name] = getattr(array_api_extra, api_name)
     else:
         globals()[api_name] = partial(
