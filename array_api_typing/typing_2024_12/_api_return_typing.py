@@ -98,6 +98,6 @@ class Info(Protocol):
         ...
 
     def dtypes(
-        self, *, device: Optional[Device], kind: Optional[Union[str, Tuple[str, ...]]]
-    ) -> DataTypes:
+        self, *, device: Optional[Device] = None, kind: Optional[Union[str, Tuple[str, ...]]] = None
+    ) -> DataTypes: # In the original signature there's no default parameters for `device` and `kind`, but we add them since they exist in `array_api_compat` modules
         ...
