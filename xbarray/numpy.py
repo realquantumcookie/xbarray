@@ -8,7 +8,10 @@ class NumpyComputeBackend(metaclass=ComputeBackendImplCls):
     RNG_TYPE = numpy_impl.RNG_TYPE
 
 for name in dir(numpy_impl):
-    if not name.startswith('_'):
+    if not name.startswith('_') or name in [
+        '__array_namespace_info__',
+        '__array_api_version__',
+    ]:
         setattr(NumpyComputeBackend, name, getattr(numpy_impl, name))
 
 __all__ = [

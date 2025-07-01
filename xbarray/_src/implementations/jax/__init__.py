@@ -3,9 +3,11 @@ import jax.numpy
 if hasattr(jax.numpy, "__array_api_version__"):
     compat_module = jax.numpy
     from jax.numpy import *
+    from jax.numpy import __array_api_version__, __array_namespace_info__
 else:
     import jax.experimental.array_api as compat_module
     from jax.experimental.array_api import *
+    from jax.experimental.array_api import __array_api_version__, __array_namespace_info__
 
 from array_api_compat.common._helpers import *
 

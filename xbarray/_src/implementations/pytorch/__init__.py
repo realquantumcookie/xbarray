@@ -1,4 +1,5 @@
 from array_api_compat.torch import *
+from array_api_compat.torch import __array_api_version__, __array_namespace_info__
 from array_api_compat.common._helpers import *
 
 simplified_name = "pytorch"

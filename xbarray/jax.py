@@ -8,7 +8,10 @@ class JaxComputeBackend(metaclass=ComputeBackendImplCls):
     RNG_TYPE = jax_impl.RNG_TYPE
 
 for name in dir(jax_impl):
-    if not name.startswith('_'):
+    if not name.startswith('_') or name in [
+        '__array_namespace_info__',
+        '__array_api_version__',
+    ]:
         setattr(JaxComputeBackend, name, getattr(jax_impl, name))
 
 __all__ = [

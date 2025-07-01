@@ -8,7 +8,10 @@ class PytorchComputeBackend(metaclass=ComputeBackendImplCls):
     RNG_TYPE = pytorch_impl.RNG_TYPE
 
 for name in dir(pytorch_impl):
-    if not name.startswith('_'):
+    if not name.startswith('_') or name in [
+        '__array_namespace_info__',
+        '__array_api_version__',
+    ]:
         setattr(PytorchComputeBackend, name, getattr(pytorch_impl, name))
 
 __all__ = [
