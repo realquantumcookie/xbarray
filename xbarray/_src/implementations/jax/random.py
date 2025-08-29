@@ -18,7 +18,7 @@ def random_number_generator(
     *,
     device : Optional[DEVICE_TYPE] = None
 ) -> RNG_TYPE:
-    rng_seed = np.random.randint(0) if seed is None else seed
+    rng_seed = np.random.randint(65535) if seed is None else seed
     rng = jax.random.key(
         seed=rng_seed
     )
