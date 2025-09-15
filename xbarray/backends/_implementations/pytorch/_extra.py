@@ -2,7 +2,7 @@ from typing import Any, Union, Optional
 import numpy as np
 import torch
 from ._typing import ARRAY_TYPE, DTYPE_TYPE, DEVICE_TYPE, RNG_TYPE
-from xbarray.base import ComputeBackend, SupportsDLPack
+from xbarray.backends.base import ComputeBackend, SupportsDLPack
 
 PYTORCH_DTYPE_CAST_MAP = {
     torch.uint16: torch.int16,

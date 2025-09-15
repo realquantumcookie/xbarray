@@ -3,7 +3,7 @@ import jax
 import jax.numpy as jnp
 import numpy as np
 from ._typing import ARRAY_TYPE, DTYPE_TYPE, DEVICE_TYPE, RNG_TYPE
-from xbarray.base import ComputeBackend, SupportsDLPack
+from xbarray.backends.base import ComputeBackend, SupportsDLPack
 
 __all__ = [
     "default_integer_dtype",
