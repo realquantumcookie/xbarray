@@ -1,6 +1,7 @@
-from typing import Any, Union, Callable
+from typing import Any, Union, Callable, Mapping, Sequence
 from array_api_typing.typing_compat import ArrayAPINamespace as CompatNamespace, ArrayAPIArray as CompatArray, ArrayAPIDType as CompatDType
 import array_api_compat
+import dataclasses
 
 __all__ = [
     "get_abbreviate_array_function",
@@ -51,12 +52,20 @@ def get_map_fn_over_arrays_function(
         """
         if is_backendarray(data):
             return func(data)
-        elif isinstance(data, dict):
-            return {k: map_fn_over_arrays(v, func) for k, v in data.items()}
-        elif isinstance(data, tuple):
-            return tuple(map_fn_over_arrays(i, func) for i in data)
-        elif isinstance(data, list):
-            return [map_fn_over_arrays(i, func) for i in data]
+        elif isinstance(data, Mapping):
+            ret = {k: map_fn_over_arrays(v, func) for k, v in data.items()}
+            try:
+                return type(data)(**ret)  # try to keep the same mapping type
+            except:
+                return ret
+        elif isinstance(data, Sequence):
+            ret = [map_fn_over_arrays(i, func) for i in data]
+            try:
+                return type(data)(ret)  # try to keep the same sequence type
+            except:
+                return ret
+        elif dataclasses.is_dataclass(data):
+            return type(data)(**map_fn_over_arrays(dataclasses.asdict(data), func))
         else:
             return data
     return map_fn_over_arrays
