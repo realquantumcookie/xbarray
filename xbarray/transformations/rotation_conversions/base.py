@@ -8,10 +8,31 @@
 # This file is pulled from PyTorch3D (https://github.com/facebookresearch/pytorch3d/blob/main/pytorch3d/transforms/rotation_conversions.py)
 # with minor modifications for cross-backend compatibility.
 # Please refer to the original file for the full license and copyright notice.
+# Please see https://github.com/facebookresearch/pytorch3d/issues/2002 for some issues involving axis angle rotations
 # --------------------------
 
 from typing import Optional
 from xbarray.backends.base import ComputeBackend, BArrayType, BDeviceType, BDtypeType, BRNGType
+
+__all__ = [
+    "quaternion_to_matrix",
+    "matrix_to_quaternion",
+    "euler_angles_to_matrix",
+    "matrix_to_euler_angles",
+    "random_quaternions",
+    "random_rotations",
+    "random_rotation",
+    "standardize_quaternion",
+    "quaternion_multiply",
+    "quaternion_invert",
+    "quaternion_apply",
+    "axis_angle_to_matrix",
+    "matrix_to_axis_angle",
+    "axis_angle_to_quaternion",
+    "quaternion_to_axis_angle",
+    "rotation_6d_to_matrix",
+    "matrix_to_rotation_6d",
+]
 
 def quaternion_to_matrix(
     backend : ComputeBackend[BArrayType, BDeviceType, BDtypeType, BRNGType],
@@ -369,7 +390,7 @@ def random_rotation(
     Returns:
         Rotation matrix as tensor of shape (3, 3).
     """
-    return random_rotations(1, dtype, device)[0]
+    return random_rotations(backend, rng, 1, dtype, device)[0]
 
 
 def standardize_quaternion(
